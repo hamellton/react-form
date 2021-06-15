@@ -1,0 +1,153 @@
+body {
+  background-color: #EEF0F8;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  max-width: 1920px;
+}
+
+.btn {
+  margin: 0 auto;
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+}
+.create__user {
+  top: 123px;
+  left: 1144px;
+  width: 120px;
+  height: 46px;
+  background: #2E8FF0 0% 0% no-repeat padding-box;
+  box-shadow: 0px 5px 8px #2E8FF029;
+  border-radius: 6px;
+  opacity: 1;
+  color: #FFFFFF;
+  border: none;
+}
+
+table {
+  background:#FFFFFF ;
+  box-shadow: 0px 0px 30px #523F690D;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-size: 14px;
+  border-radius: 10px;
+  border-spacing: 0;
+  text-align: left;
+  width: 60%;
+  margin: 0 auto;
+}
+th {
+  background: #FFFFFF;
+  color: #A4A4B5;
+  padding: 10px 20px;
+}
+th, td {
+  border-style: solid;
+  border-width: 0 0 0 0;
+  border-color: white;
+}
+th:first-child, td:first-child {
+  text-align: left;
+}
+
+th:last-child {
+  border-right: none;
+}
+td {
+  padding: 10px 20px;
+  color: #3F4254;
+}
+tr:last-child td:first-child {
+  border-radius: 0 0 0 10px;
+}
+tr:last-child td:last-child {
+  border-radius: 0 0 10px 0;
+}
+
+.table__list:hover {
+  background: #EFF0F4;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form {
+  width: 50%;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+  padding: 20px;
+  box-shadow: 0px 0px 30px #523F690D;
+  margin-top: 10%;
+}
+
+.form__title {
+  font-weight: bold;
+  color: #3F4254;
+  font-size: 16px;
+}
+
+
+
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+.create__button {
+  background-color: #2E8FF0;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+.create__button:hover {
+  background-color: #2E8FF0;
+}
+
+.create__button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #383838;
+  color: #666666;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  width: 75%;
+  margin-top: 6px;
+}
+.col-75 textarea {
+  height:200px
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
