@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const FormCreateUser = ({ addUser }) => {
+const FormCreateUser = ({ addUser, users }) => {
   let userNameRef = useRef(null);
   let firstNameRef = useRef(null);
   let lastNameRef = useRef(null);
@@ -13,7 +13,7 @@ const FormCreateUser = ({ addUser }) => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [type, setType] = useState();
+  const [type, setType] = useState([]);
 
   const [userNameDirty, setUserNameDirty] = useState(false);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
@@ -37,6 +37,10 @@ const FormCreateUser = ({ addUser }) => {
 
   const [formValid, setFormValid] = useState(false);
 
+  function handleSelectChange(event) {
+    setType(event.target.value);
+  }
+
   useEffect(() => {
     if (
       userNameError ||
@@ -53,8 +57,16 @@ const FormCreateUser = ({ addUser }) => {
 
   const userNameHandler = () => {
     setUserName(userNameRef.current.value);
+
+    if (users.find((el) => el.username === userNameRef.current.value)) {
+      setUserNameError("such user already exists");
+      return;
+    }
+
     if (userNameRef.current.value) {
       setUserNameError("");
+    } else {
+      setUserNameError("Username cannot be empty");
     }
   };
 
@@ -78,7 +90,7 @@ const FormCreateUser = ({ addUser }) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (!re.test(String(emailRef.current.value).toLowerCase())) {
-      setEmailError("Некоректный имейл");
+      setEmailError("Incorrect email");
       return;
     }
     setEmailError("");
@@ -230,9 +242,14 @@ const FormCreateUser = ({ addUser }) => {
               <label htmlFor="type">Type*</label>
             </div>
             <div className="col-75">
-              <select ref={typeRef} id="type" name="type">
-                <option value="Administrator">Administrator</option>
+              <select
+                onChange={handleSelectChange}
+                ref={typeRef}
+                id="type"
+                name="type"
+              >
                 <option value="Driver">Driver</option>
+                <option value="Administrator">Administrator</option>
               </select>
             </div>
           </div>
@@ -240,7 +257,6 @@ const FormCreateUser = ({ addUser }) => {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                const type = "Admin";
                 addUser(userName, firstName, lastName, email, password, type);
               }}
               disabled={!formValid}

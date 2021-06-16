@@ -1,33 +1,81 @@
 import UsersList from "./components/UsersList/UsersList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormCreateUser from "./components/FormCreateUser/FormCreateUser";
+import FormUpdateUser from "./components/FormUpdateUser/FormUpdateUser";
 
 const App = () => {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      username: "mperry1992",
-      firstName: "Matthew",
-      lastName: "Perry",
-      email: "matthew@mail.com",
-      password: "12345678w",
-      type: "Administrator",
-    },
-    {
-      id: 2,
-      username: "mperry1992",
-      firstName: "Matthew",
-      lastName: "Perry",
-      email: "matthew@mail.com",
-      password: "12345678w",
-      type: "Driver",
-    },
-  ]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("users") || "[]");
+    setUsers(saved);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(users));
+  }, [users]);
+
+  const [updateUser, setUpdateUser] = useState([]);
 
   const [visibleFormCreate, setVisibleFormCreate] = useState(false);
+  const [visibleFormUpdate, setVisibleFormUpdate] = useState(false);
 
   const visibleCreateUser = () => {
     setVisibleFormCreate(!visibleFormCreate);
+  };
+
+  const visibleUpdateUser = (
+    id,
+    userName,
+    firstName,
+    lastName,
+    email,
+    password,
+    type
+  ) => {
+    const updateUser = {
+      id: id,
+      username: userName,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+      type: type,
+    };
+    setUpdateUser([updateUser]);
+    setVisibleFormUpdate(!visibleFormUpdate);
+  };
+
+  const updateUserToggle = (
+    id,
+    userName,
+    firstName,
+    lastName,
+    email,
+    password,
+    type
+  ) => {
+    setUsers((prevState) =>
+      prevState.map((el) => {
+        if (el.id === id) {
+          return {
+            id: id,
+            username: userName,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
+            type: type,
+          };
+        }
+        return el;
+      })
+    );
+  };
+
+  const removeUser = (id) => {
+    setUsers((prevState) => prevState.filter((el) => el.id !== id));
+    setVisibleFormUpdate(false);
   };
 
   const addUser = (username, firstName, lastName, email, password, type) => {
@@ -47,11 +95,49 @@ const App = () => {
   return (
     <>
       <UsersList
+        visibleUpdateUser={visibleUpdateUser}
         visibleFormCreate={visibleFormCreate}
         onVisible={visibleCreateUser}
         users={users}
       />
-      {visibleFormCreate && <FormCreateUser addUser={addUser} />}
+      {visibleFormCreate && <FormCreateUser users={users} addUser={addUser} />}
+      {visibleFormUpdate && (
+        <FormUpdateUser
+          setVisibleFormUpdate={setVisibleFormUpdate}
+          onRemove={removeUser}
+          updateUserToggle={updateUserToggle}
+          updateUser={updateUser}
+          users={users}
+        />
+      )}
+      {/*<Route*/}
+      {/*  exact*/}
+      {/*  path="/"*/}
+      {/*  render={() => (*/}
+      {/*    <UsersList*/}
+      {/*      visibleUpdateUser={visibleUpdateUser}*/}
+      {/*      visibleFormCreate={visibleFormCreate}*/}
+      {/*      onVisible={visibleCreateUser}*/}
+      {/*      users={users}*/}
+      {/*    />*/}
+      {/*  )}*/}
+      {/*/>*/}
+      {/*<Route*/}
+      {/*  exact*/}
+      {/*  path="/form-create"*/}
+      {/*  render={() => <FormCreateUser users={users} addUser={addUser} />}*/}
+      {/*/>*/}
+      {/*<Route*/}
+      {/*  path="/form-update"*/}
+      {/*  render={() => (*/}
+      {/*    <FormUpdateUser*/}
+      {/*      onRemove={removeUser}*/}
+      {/*      updateUserToggle={updateUserToggle}*/}
+      {/*      updateUser={updateUser}*/}
+      {/*      users={users}*/}
+      {/*    />*/}
+      {/*  )}*/}
+      {/*/>*/}
     </>
   );
 };

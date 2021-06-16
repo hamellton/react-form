@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import ButtonOpenFormCreate from "./Button/ButtonOpenFormCreate";
 
-const UsersList = ({ users, onVisible, visibleFormCreate }) => {
+const UsersList = ({
+  users,
+  onVisible,
+  visibleFormCreate,
+  visibleUpdateUser,
+}) => {
   const [userMenu] = useState([
     "Username",
     "First name",
@@ -11,30 +16,47 @@ const UsersList = ({ users, onVisible, visibleFormCreate }) => {
   ]);
 
   return (
-    <div>
+    <>
       <ButtonOpenFormCreate
         visibleFormCreate={visibleFormCreate}
         onVisible={onVisible}
       />
       <table className="table">
-        <tr className="table__menu">
-          {userMenu.map((el, index) => {
-            return <th key={`${el}__${index}`}>{el}</th>;
-          })}
-        </tr>
-        {users.map((el, index) => {
+        <tbody>
+          <tr className="table__menu">
+            {userMenu.map((el, index) => {
+              return <th key={`${el}__${index}`}>{el}</th>;
+            })}
+          </tr>
+        </tbody>
+        {users.map((el) => {
           return (
-            <tr className="table__list active" key={index}>
-              <td>{el.username}</td>
-              <td>{el.firstName}</td>
-              <td>{el.lastName}</td>
-              <td>{el.email}</td>
-              <td>{el.type}</td>
-            </tr>
+            <tbody
+              onClick={() =>
+                visibleUpdateUser(
+                  el.id,
+                  el.username,
+                  el.firstName,
+                  el.lastName,
+                  el.email,
+                  el.password,
+                  el.type
+                )
+              }
+              key={el.id}
+            >
+              <tr className="table__list active">
+                <td>{el.username}</td>
+                <td>{el.firstName}</td>
+                <td>{el.lastName}</td>
+                <td>{el.email}</td>
+                <td>{el.type}</td>
+              </tr>
+            </tbody>
           );
         })}
       </table>
-    </div>
+    </>
   );
 };
 

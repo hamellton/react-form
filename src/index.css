@@ -26,6 +26,8 @@ body {
   border: none;
 }
 
+
+
 table {
   background:#FFFFFF ;
   box-shadow: 0px 0px 30px #523F690D;
@@ -34,8 +36,9 @@ table {
   border-radius: 10px;
   border-spacing: 0;
   text-align: left;
-  width: 60%;
+  width: 30%;
   margin: 0 auto;
+  padding: 10px;
 }
 th {
   background: #FFFFFF;
@@ -61,6 +64,7 @@ td {
 tr:last-child td:first-child {
   border-radius: 0 0 0 10px;
 }
+
 tr:last-child td:last-child {
   border-radius: 0 0 10px 0;
 }
@@ -77,7 +81,7 @@ tr:last-child td:last-child {
 }
 
 .form {
-  width: 50%;
+  width: 30%;
   border-radius: 5px;
   background-color: #FFFFFF;
   padding: 20px;
@@ -115,6 +119,7 @@ label {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin: 10px;
   float: right;
 }
 
@@ -127,6 +132,36 @@ button[disabled]{
   border: 1px solid #999999;
   background-color: #383838;
   color: #666666;
+}
+
+.delete__button {
+  background-color: #F44682;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px;
+  float: left;
+}
+
+.delete__button:hover {
+  background-color: red;
+}
+
+.close__button {
+  background-color: #83aa6b;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px;
+  float: left;
+}
+
+.close__button:hover {
+  background-color: green;
 }
 
 .col-25 {
