@@ -74,8 +74,14 @@ const App = () => {
   };
 
   const removeUser = (id) => {
-    setUsers((prevState) => prevState.filter((el) => el.id !== id));
-    setVisibleFormUpdate(false);
+    const shouldRemove = window.confirm(
+      "Are you sure you want to delete the user?"
+    );
+
+    if (shouldRemove) {
+      setUsers((prevState) => prevState.filter((el) => el.id !== id));
+      setVisibleFormUpdate(false);
+    }
   };
 
   const addUser = (username, firstName, lastName, email, password, type) => {
