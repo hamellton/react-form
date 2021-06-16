@@ -138,8 +138,6 @@ const FormUpdateUser = ({
     }
   };
 
-  console.log(userName);
-
   return (
     <div className="container">
       {updateUser.map((el) => {
